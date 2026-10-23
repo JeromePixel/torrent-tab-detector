@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Torrent 批量下载台</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-opacity="0.16" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="11.5" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="5.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M20 20 L33 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="2" fill="currentColor"/>
+          <circle cx="31.5" cy="11" r="2.4" fill="currentColor"/>
+        </svg>
+        <div class="brand-text">
+          <h1>Torrent 批量下载台</h1>
+          <p>把所有已打开标签页中的磁力链接和种子文件汇总到一页，全选即可批量处理</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span id="scanMeta" class="scan-meta"></span>
+        <button id="scanBtn" class="btn primary" type="button">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M13.5 8a5.5 5.5 0 1 1-1.7-3.96" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M13.7 1.8v3.1h-3.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="scanBtnText">重新扫描</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="汇总统计">
+      <div class="stat">
+        <span id="statTotal" class="stat-value">0</span>
+        <span class="stat-label">可下载条目</span>
+      </div>
+      <div class="stat magnet">
+        <span id="statMagnets" class="stat-value">0</span>
+        <span class="stat-label">磁力链接</span>
+      </div>
+      <div class="stat file">
+        <span id="statFiles" class="stat-value">0</span>
+        <span class="stat-label">.torrent 文件</span>
+      </div>
+      <div class="stat source">
+        <span id="statSources" class="stat-value">0</span>
+        <span class="stat-label">来源标签页</span>
+      </div>
+    </section>
+
+    <div id="progressWrap" class="progress-wrap" hidden>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      <div class="progress-meta">
+        <span id="progressText">正在扫描…</span>
+        <span id="progressPercent">0%</span>
+      </div>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div class="segmented" id="typeFilters" role="tablist">
+          <button type="button" class="seg-btn active" data-type="all">全部</button>
+          <button type="button" class="seg-btn" data-type="magnet">磁力链接</button>
+          <button type="button" class="seg-btn" data-type="torrent-file">种子文件</button>
+        </div>
+        <label class="search">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10.4 10.4 L14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input id="searchInput" type="search" placeholder="搜索名称、链接或来源标签页" autocomplete="off" spellcheck="false" />
+        </label>
+      </div>
+
+      <div class="table-head">
+        <label class="check-cell">
+          <input type="checkbox" id="selectAll" />
+          <span>全选</span>
+        </label>
+        <span class="col-name">名称 / 链接</span>
+        <span class="col-source">来源标签页</span>
+        <span class="col-type">类型</span>
+        <span class="col-actions">操作</span>
+      </div>
+
+      <div id="list" class="list" aria-live="polite"></div>
+      <div id="scanFoot" class="scan-foot" hidden></div>
+    </section>
+
+    <p class="batch-hint">
+      点击「下载选中」后：<b>.torrent 文件</b>会直接批量下载；<b>磁力链接</b>会一次性复制到剪贴板，粘贴到任意 BT 客户端即可批量添加，无需逐个点开页面。
+    </p>
+  </div>
+
+  <footer class="actionbar">
+    <div class="actionbar-inner">
+      <div id="selectionInfo" class="selection-info">未选择任何条目</div>
+      <div class="footer-actions">
+        <button id="copyMagnetsBtn" class="btn ghost" type="button" disabled>复制磁力</button>
+        <button id="downloadBtn" class="btn primary" type="button" disabled>下载选中</button>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <div id="modal" class="modal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <h2 id="modalTitle"></h2>
+      <div id="modalBody" class="modal-body"></div>
+      <div class="modal-actions">
+        <button id="modalOk" class="btn primary" type="button">知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

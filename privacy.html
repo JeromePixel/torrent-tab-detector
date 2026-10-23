@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>隐私政策 · Torrent Tab Detector</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #0f1216;
+    --panel: #161b21;
+    --text: #e6edf3;
+    --muted: #9aa7b4;
+    --line: #263039;
+    --accent: #38b98a;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f7f9fa;
+      --panel: #ffffff;
+      --text: #1c252c;
+      --muted: #5b6b78;
+      --line: #e2e8ed;
+      --accent: #1f7a5a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 20px 72px;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  main { max-width: 760px; margin: 0 auto; }
+  header { margin-bottom: 32px; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  h1 { font-size: 26px; line-height: 1.3; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .meta { color: var(--muted); font-size: 13px; margin: 0; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+  }
+  h2 { font-size: 16px; margin: 0 0 10px; }
+  h3 { font-size: 14px; margin: 18px 0 8px; color: var(--accent); }
+  p, ul { margin: 0 0 10px; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  code {
+    background: rgba(127, 127, 127, 0.16);
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  .en { color: var(--muted); font-size: 13px; }
+  footer { color: var(--muted); font-size: 12px; text-align: center; margin-top: 28px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="badge">Chrome / Edge 扩展 · Manifest V3</span>
+    <h1>Torrent Tab Detector 隐私政策</h1>
+    <p class="meta">生效日期：2026-10-23 · 适用版本：1.1.0</p>
+  </header>
+
+  <section>
+    <h2>1. 一句话说明</h2>
+    <p>本扩展<strong>完全在你的浏览器本地运行</strong>，不连接任何服务器，不上传、不共享、不出售任何数据。</p>
+    <p class="en">Everything runs locally in your browser. Nothing is uploaded, shared, or sold.</p>
+  </section>
+
+  <section>
+    <h2>2. 扩展会读取哪些信息</h2>
+    <p>只有在你点击「扫描」或打开批量管理页时，扩展才会读取以下信息：</p>
+    <table>
+      <tr><th>信息</th><th>用途</th></tr>
+      <tr><td>已打开标签页的标题、网址、图标</td><td>列出扫描范围，并在结果中标注来源页面</td></tr>
+      <tr><td>页面的链接、文本、脚本与资源地址</td><td>识别其中的磁力链接、<code>.torrent</code> 文件与论坛附件链接</td></tr>
+      <tr><td>页面运行时公开的全局变量名</td><td>辅助判断页面是否内嵌 BT 客户端组件</td></tr>
+    </table>
+    <p>扩展<strong>不会</strong>读取：账号密码、表单中已输入的私密内容、Cookie、浏览历史记录文件、书签、下载记录明细。</p>
+    <p class="en">The extension reads tab titles/URLs and page content only to locate torrent links. It does not read passwords, cookies, bookmark or history databases.</p>
+  </section>
+
+  <section>
+    <h2>3. 数据如何处理与存储</h2>
+    <ul>
+      <li>所有解析都在扩展的本地进程 / 页面内完成，<strong>没有任何网络请求发往第三方</strong>；</li>
+      <li>最近一次扫描的汇总结果保存在浏览器本地存储 <code>chrome.storage.local</code>，仅含标签页标题、网址、识别到的链接，用于下次打开时快速展示；</li>
+      <li>卸载扩展或清除扩展数据后，上述本地记录立即消失；</li>
+      <li>扩展不包含统计、埋点、广告或崩溃上报 SDK。</li>
+    </ul>
+    <p class="en">Parsing happens locally. The latest scan summary is kept in <code>chrome.storage.local</code> and is deleted when the extension is removed or its data is cleared. No analytics, ads, or crash reporting.</p>
+  </section>
+
+  <section>
+    <h2>4. 权限说明</h2>
+    <table>
+      <tr><th>权限</th><th>为什么需要</th></tr>
+      <tr><td><code>tabs</code></td><td>枚举所有已打开标签页的标题与网址，才能一次性汇总</td></tr>
+      <tr><td><code>scripting</code></td><td>在你点击扫描后，向页面注入一次性只读脚本以查找 torrent 链接</td></tr>
+      <tr><td><code>storage</code></td><td>在本地缓存最近一次扫描结果</td></tr>
+      <tr><td><code>downloads</code></td><td>批量下载你勾选的 <code>.torrent</code> 文件</td></tr>
+      <tr><td><code>clipboardWrite</code></td><td>把你勾选的磁力链接一次性复制到剪贴板</td></tr>
+      <tr><td>网站访问权限（http/https）</td><td>扫描需要覆盖你打开的所有普通网站；浏览器内部页面、应用商店页面始终无法被扫描</td></tr>
+    </table>
+    <p class="en">Permissions are used solely for scanning tabs and for the download/clipboard actions you explicitly trigger.</p>
+  </section>
+
+  <section>
+    <h2>5. 用户主动触发的动作</h2>
+    <ul>
+      <li>「下载选中」：仅下载你在列表中勾选的文件；</li>
+      <li>「复制磁力」：仅把勾选的磁力链接写入系统剪贴板，不读取剪贴板内容；</li>
+      <li>「定位来源」：切换到对应标签页，不修改页面内容。</li>
+    </ul>
+    <p class="en">Downloads and clipboard writes occur only for items you select. The extension never reads your clipboard.</p>
+  </section>
+
+  <section>
+    <h2>6. 儿童隐私与第三方</h2>
+    <p>本扩展不面向儿童，不收集任何个人信息，也不与任何第三方共享数据。</p>
+  </section>
+
+  <section>
+    <h2>7. 政策更新</h2>
+    <p>若未来版本改变了数据处理方式，会在此页面更新并同步提升版本号与生效日期。</p>
+  </section>
+
+  <section>
+    <h2>8. 联系方式</h2>
+    <p>如对本政策有疑问，请联系：<a href="mailto:你的邮箱@example.com">你的邮箱@example.com</a></p>
+    <p class="en">Contact: <a href="mailto:你的邮箱@example.com">你的邮箱@example.com</a>（请替换为真实邮箱后再发布）</p>
+  </section>
+
+  <footer>Torrent Tab Detector · 本页面为静态 HTML，可直接托管在任意 HTTPS 静态站点。</footer>
+</main>
+</body>
+</html>

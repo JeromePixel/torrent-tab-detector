@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Torrent Tab Detector</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-opacity="0.16" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="11.5" fill="none" stroke="currentColor" stroke-opacity="0.35" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="5.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M20 20 L33 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="2" fill="currentColor"/>
+          <circle cx="31.5" cy="11" r="2.4" fill="currentColor"/>
+        </svg>
+        <div class="brand-text">
+          <h1>Torrent Tab Detector</h1>
+          <p>扫描所有已打开标签页的种子痕迹</p>
+        </div>
+      </div>
+      <button id="scanBtn" class="btn primary" type="button">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 8a5.5 5.5 0 1 1-1.7-3.96" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M13.7 1.8v3.1h-3.1" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="scanBtnText">重新扫描</span>
+      </button>
+    </header>
+
+    <section class="stats" aria-label="扫描统计">
+      <div class="stat">
+        <span class="stat-value" id="statScanned">0</span>
+        <span class="stat-label">已扫描</span>
+      </div>
+      <div class="stat hit">
+        <span class="stat-value" id="statHits">0</span>
+        <span class="stat-label">命中标签页</span>
+      </div>
+      <div class="stat muted">
+        <span class="stat-value" id="statSkipped">0</span>
+        <span class="stat-label">已跳过</span>
+      </div>
+    </section>
+
+    <div id="progressWrap" class="progress-wrap" hidden>
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+      <div class="progress-meta">
+        <span id="progressText">正在扫描…</span>
+        <span id="progressPercent">0%</span>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="segmented" role="tablist">
+        <button type="button" class="seg-btn active" data-filter="hits">仅命中</button>
+        <button type="button" class="seg-btn" data-filter="all">全部标签页</button>
+      </div>
+      <span id="scanTime" class="scan-time"></span>
+    </div>
+
+    <main id="results" class="results" aria-live="polite">
+      <div class="empty-state">
+        <div class="empty-icon">◇</div>
+        <p>点击「重新扫描」开始检测</p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <button id="dashboardBtn" class="btn ghost manage" type="button">批量管理</button>
+      <button id="copyBtn" class="btn ghost" type="button">复制报告</button>
+      <button id="clearBtn" class="btn ghost" type="button">清空结果</button>
+      <span class="privacy">仅本地分析</span>
+    </footer>
+  </div>
+  <div id="toast" class="toast" hidden></div>
+  <script src="popup.js"></script>
+</body>
+</html>

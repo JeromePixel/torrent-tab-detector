@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Torrent Tab Detector",
+  "version": "1.1.0",
+  "description": "扫描所有已打开的浏览器标签页，把所有磁力链接与 .torrent 文件汇总到一个页面，支持全选批量下载。",
+  "minimum_chrome_version": "102",
+  "permissions": ["tabs", "scripting", "storage", "clipboardWrite", "downloads"],
+  "host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "dashboard.html",
+    "open_in_tab": true
+  },
+  "action": {
+    "default_title": "Torrent Tab Detector",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}
